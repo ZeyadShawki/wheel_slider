@@ -125,15 +125,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   ageDividerColor: Colors.amber,
                   horizontal: false,
                   itemSize: 55,
-                  verticalListHeight: 300.0,
+                  verticalListHeight: 450.0,
                   perspective: 0.01,
+                  dividerSpacing: 450 * 0.42,
                   totalCount: _nTotalCount,
                   initValue: _nInitValue,
                   unSelectedNumberStyle: const TextStyle(
                     fontSize: 32.0,
                     color: Colors.black54,
                   ),
-                  horizontalListHeight: 500,
+                  // horizontalListHeight: 500,
                   selectedNumberStyle: const TextStyle(
                     fontSize: 40.0,
                     fontWeight: FontWeight.bold,
