@@ -182,6 +182,19 @@ class WheelSlider extends StatefulWidget {
   })  : assert(perspective <= 0.01),
         lineColor = null,
         children = List.generate(totalCount + 1, (index) {
+          final isLessThanCurrent = index < currentIndex!;
+          final isGreaterThanCurrent = index > currentIndex!;
+
+          double? fontSize;
+          if (isLessThanCurrent || isGreaterThanCurrent) {
+            final baseFontSize = unSelectedNumberStyle?.fontSize ??
+                12.0; // Default font size if unSelectedNumberStyle is null
+            fontSize = baseFontSize -
+                2; // Decrease font size by 2 for indices less than or greater than the current index
+          } else {
+            fontSize = unSelectedNumberStyle?.fontSize;
+          }
+
           return Container(
             alignment: Alignment.center,
             child: Text(
@@ -189,17 +202,9 @@ class WheelSlider extends StatefulWidget {
                   interval.toString().contains('.')
                       ? interval.toString().split('.').last.length
                       : 0),
-              style: ((index * (interval ?? 1)) == currentIndex ||
-                      (index * (interval ?? 1)) == (currentIndex! - 1) ||
-                      (index * (interval ?? 1)) == (currentIndex + 1))
+              style: (index * (interval ?? 1)) == currentIndex
                   ? selectedNumberStyle
-                  : (unSelectedNumberStyle?.copyWith(
-                      color: ((index * (interval ?? 1)) == currentIndex ||
-                              (index * (interval ?? 1)) ==
-                                  (currentIndex! - 1) ||
-                              (index * (interval ?? 1)) == (currentIndex + 1))
-                          ? Colors.white
-                          : unSelectedNumberStyle.color)),
+                  : unSelectedNumberStyle?.copyWith(fontSize: fontSize),
             ),
           );
         }),
