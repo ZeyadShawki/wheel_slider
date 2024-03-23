@@ -189,11 +189,17 @@ class WheelSlider extends StatefulWidget {
                   interval.toString().contains('.')
                       ? interval.toString().split('.').last.length
                       : 0),
-              style: (index * (interval ?? 1)) == currentIndex ||
+              style: ((index * (interval ?? 1)) == currentIndex ||
                       (index * (interval ?? 1)) == (currentIndex! - 1) ||
-                      (index * (interval ?? 1)) == (currentIndex + 1)
+                      (index * (interval ?? 1)) == (currentIndex + 1))
                   ? selectedNumberStyle
-                  : unSelectedNumberStyle,
+                  : (unSelectedNumberStyle?.copyWith(
+                      color: ((index * (interval ?? 1)) == currentIndex ||
+                              (index * (interval ?? 1)) ==
+                                  (currentIndex! - 1) ||
+                              (index * (interval ?? 1)) == (currentIndex + 1))
+                          ? Colors.white
+                          : unSelectedNumberStyle.color)),
             ),
           );
         }),
