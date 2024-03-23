@@ -182,29 +182,40 @@ class WheelSlider extends StatefulWidget {
   })  : assert(perspective <= 0.01),
         lineColor = null,
         children = List.generate(totalCount + 1, (index) {
-          final isLessThanCurrent = index < currentIndex!;
-          final isGreaterThanCurrent = index > currentIndex!;
+          final isAdjacentToCurrent = (index >= currentIndex! - 1 &&
+              index <=
+                  currentIndex! + 1); // Check for indices -1, current, and +1
+          final isTwoAwayFromCurrent = (index == currentIndex! - 2 ||
+              index == currentIndex! + 2); // Check for indices -2 and +2
 
           double? fontSize;
-          if (isLessThanCurrent || isGreaterThanCurrent) {
-            final baseFontSize = unSelectedNumberStyle?.fontSize ??
-                12.0; // Default font size if unSelectedNumberStyle is null
-            fontSize = baseFontSize -
-                2; // Decrease font size by 2 for indices less than or greater than the current index
+          TextStyle? numberStyle;
+          if (isAdjacentToCurrent) {
+            // For indices one less than, current, or one greater than the current index
+            fontSize = unSelectedNumberStyle?.fontSize ?? 12.0;
+            numberStyle =
+                selectedNumberStyle; // Apply selected style for adjacent indices
+          } else if (isTwoAwayFromCurrent) {
+            // For indices two less than or two greater than the current index
+            fontSize = unSelectedNumberStyle?.fontSize ?? 12.0;
+            numberStyle = (unSelectedNumberStyle?.copyWith(
+                fontSize: fontSize -
+                    2))!; // Apply modified unselected style for indices two away
           } else {
-            fontSize = unSelectedNumberStyle?.fontSize;
+            // For indices further away (less than -2 or greater than +2)
+            fontSize = unSelectedNumberStyle?.fontSize ?? 12.0;
+            numberStyle = unSelectedNumberStyle; // Use default unselected style
           }
 
           return Container(
             alignment: Alignment.center,
             child: Text(
               (index * (interval ?? 1)).toStringAsFixed(
-                  interval.toString().contains('.')
-                      ? interval.toString().split('.').last.length
-                      : 0),
-              style: (index * (interval ?? 1)) == currentIndex
-                  ? selectedNumberStyle
-                  : unSelectedNumberStyle?.copyWith(fontSize: fontSize),
+                interval.toString().contains('.')
+                    ? interval.toString().split('.').last.length
+                    : 0,
+              ),
+              style: numberStyle,
             ),
           );
         }),
