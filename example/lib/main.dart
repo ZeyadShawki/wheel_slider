@@ -118,20 +118,24 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 30.0,
               ),
-              CustomBox(
-                title: 'Numbered Wheel Slider',
-                wheelSlider: WheelSlider.number(
+              SizedBox(
+                child: WheelSlider.number(
+                  ageDivider: true,
+                  verticalListWidth: 70,
+                  ageDividerColor: Colors.amber,
                   horizontal: false,
+                  itemSize: 55,
                   verticalListHeight: 300.0,
                   perspective: 0.01,
                   totalCount: _nTotalCount,
                   initValue: _nInitValue,
                   unSelectedNumberStyle: const TextStyle(
-                    fontSize: 16.0,
+                    fontSize: 32.0,
                     color: Colors.black54,
                   ),
+                  horizontalListHeight: 500,
                   selectedNumberStyle: const TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 40.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.redAccent,
                   ),

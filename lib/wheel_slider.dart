@@ -1,7 +1,9 @@
 library wheel_slider;
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:wheel_chooser/wheel_chooser.dart';
 
 //ignore: must_be_immutable
@@ -51,6 +53,7 @@ class WheelSlider extends StatefulWidget {
 
   WheelSlider({
     Key? key,
+    this.ageDivider = false,
     this.horizontalListHeight = 50,
     this.horizontalListWidth = double.infinity,
     this.verticalListHeight = 400.0,
@@ -80,6 +83,7 @@ class WheelSlider extends StatefulWidget {
     this.enableAnimation = true,
     this.animationDuration = const Duration(seconds: 1),
     this.animationType = Curves.easeIn,
+    this.ageDividerColor,
   })  : assert(perspective <= 0.01),
         selectedNumberStyle = null,
         unSelectedNumberStyle = null,
@@ -136,9 +140,13 @@ class WheelSlider extends StatefulWidget {
     );
   }
 
+  final bool ageDivider;
+  final Color? ageDividerColor;
+
   /// Displays numbers instead of lines.
   WheelSlider.number({
     Key? key,
+    this.ageDivider = false,
     this.horizontalListHeight = 50,
     this.horizontalListWidth = double.infinity,
     this.verticalListHeight = 400.0,
@@ -170,6 +178,7 @@ class WheelSlider extends StatefulWidget {
     this.enableAnimation = true,
     this.animationDuration = const Duration(seconds: 1),
     this.animationType = Curves.easeIn,
+    this.ageDividerColor,
   })  : assert(perspective <= 0.01),
         lineColor = null,
         children = List.generate(totalCount + 1, (index) {
@@ -180,7 +189,9 @@ class WheelSlider extends StatefulWidget {
                   interval.toString().contains('.')
                       ? interval.toString().split('.').last.length
                       : 0),
-              style: (index * (interval ?? 1)) == currentIndex
+              style: (index * (interval ?? 1)) == currentIndex ||
+                      (index * (interval ?? 1)) == (currentIndex! - 1) ||
+                      (index * (interval ?? 1)) == (currentIndex + 1)
                   ? selectedNumberStyle
                   : unSelectedNumberStyle,
             ),
@@ -234,6 +245,8 @@ class WheelSlider extends StatefulWidget {
     this.enableAnimation = true,
     this.animationDuration = const Duration(seconds: 1),
     this.animationType = Curves.easeIn,
+    this.ageDivider = false,
+    this.ageDividerColor,
   })  : assert(perspective <= 0.01),
         lineColor = null,
         selectedNumberStyle = null,
@@ -324,6 +337,27 @@ class _WheelSliderState extends State<WheelSlider> {
         alignment: Alignment.center,
         children: [
           widget.background,
+          if (widget.ageDivider)
+            Column(
+              children: [
+                const SizedBox(
+                  height: 115,
+                ),
+                SizedBox(
+                    child: Divider(
+                  thickness: 2,
+                  color: widget.ageDividerColor ?? Colors.black,
+                )),
+                const SizedBox(
+                  height: 40,
+                ),
+                SizedBox(
+                    child: Divider(
+                  thickness: 2,
+                  color: widget.ageDividerColor ?? Colors.black,
+                )),
+              ],
+            ),
           WheelChooser.custom(
             controller: _scrollController,
             onValueChanged: (val) async {
