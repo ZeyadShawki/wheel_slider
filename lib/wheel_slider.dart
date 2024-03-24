@@ -86,7 +86,8 @@ class WheelSlider extends StatefulWidget {
     this.animationDuration = const Duration(seconds: 1),
     this.animationType = Curves.easeIn,
     this.ageDividerColor,
-    this.dividerSpacing, this.dividerBetweenSpacing,
+    this.dividerSpacing,
+    this.dividerBetweenSpacing,
   })  : assert(perspective <= 0.01),
         selectedNumberStyle = null,
         unSelectedNumberStyle = null,
@@ -184,7 +185,8 @@ class WheelSlider extends StatefulWidget {
     this.animationDuration = const Duration(seconds: 1),
     this.animationType = Curves.easeIn,
     this.ageDividerColor,
-    this.dividerSpacing, this.dividerBetweenSpacing,
+    this.dividerSpacing,
+    this.dividerBetweenSpacing,
   })  : assert(perspective <= 0.01),
         lineColor = null,
         children = List.generate(totalCount + 1, (index) {
@@ -203,7 +205,6 @@ class WheelSlider extends StatefulWidget {
               numberStyle =
                   selectedNumberStyle; // Apply selected style for adjacent indices
             } else {
-              log('sss');
               numberStyle = (selectedNumberStyle?.copyWith(
                   color: selectedNumberStyle!.color, fontSize: fontSize - .5));
             }
@@ -281,7 +282,8 @@ class WheelSlider extends StatefulWidget {
     this.animationType = Curves.easeIn,
     this.ageDivider = false,
     this.ageDividerColor,
-    this.dividerSpacing, this.dividerBetweenSpacing,
+    this.dividerSpacing,
+    this.dividerBetweenSpacing,
   })  : assert(perspective <= 0.01),
         lineColor = null,
         selectedNumberStyle = null,
@@ -383,8 +385,8 @@ class _WheelSliderState extends State<WheelSlider> {
                   thickness: 2,
                   color: widget.ageDividerColor ?? Colors.black,
                 )),
-                 SizedBox(
-                  height: widget.dividerBetweenSpacing??40,
+                SizedBox(
+                  height: widget.dividerBetweenSpacing ?? 40,
                 ),
                 SizedBox(
                     child: Divider(

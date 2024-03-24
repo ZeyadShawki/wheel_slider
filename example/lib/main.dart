@@ -61,6 +61,15 @@ class _HomeScreenState extends State<HomeScreen> {
     {'flag': 'assets/usa.png', 'name': 'USA'},
   ];
 
+  final List<int> heights = [];
+  @override
+  void initState() {
+    for (var i = 100; i < 250; i++) {
+      heights.add(i);
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -150,47 +159,77 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const SizedBox(
-                height: 40.0,
+                height: 50.0,
               ),
-              CustomBox(
-                title: 'Custom Widget Wheel Slider',
-                wheelSlider: WheelSlider.customWidget(
-                  totalCount: _countryList.length,
-                  initValue: _cInitValue,
-                  isInfinite: false,
-                  scrollPhysics: const BouncingScrollPhysics(),
-                  children: List.generate(
-                      _countryList.length,
-                      (index) => Center(
-                            child: Image.asset(
-                              _countryList[index]['flag']!,
-                              scale: _cCurrentValue == index ? null : 1.3,
-                              color: _cCurrentValue == index
-                                  ? Colors.transparent
-                                  : Colors.white,
-                              colorBlendMode: BlendMode.color,
+              WheelSlider.customWidget(
+                totalCount: heights.length,
+                horizontal: false,
+                initValue: _cInitValue,
+                isInfinite: false,
+                scrollPhysics: const BouncingScrollPhysics(),
+                verticalListWidth: 150,
+                ageDivider: true,
+                ageDividerColor: Colors.amber,
+                itemSize: 55,
+                verticalListHeight: 450.0,
+                perspective: 0.01,
+                dividerSpacing: 450 * 0.43,
+                children: List.generate(
+                    _countryList.length,
+                    (index) => Center(
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                if (_cCurrentValue == index) ...[
+                                  TextSpan(
+                                    text:
+                                        '${heights[index]}', // Display height when _cCurrentValue is equal to index
+                                    style: TextStyle(
+                                        fontSize: 45,
+                                        color: Colors
+                                            .black), // Style for height text
+                                  ),
+                                ] else if (_cCurrentValue == index - 1 ||
+                                    _cCurrentValue == index + 1) ...[
+                                  TextSpan(
+                                    text:
+                                        '${heights[index]}', // Display height when _cCurrentValue is equal to index
+                                    style: TextStyle(
+                                        fontSize: 45 - (index.toDouble()),
+                                        color: Colors
+                                            .black), // Style for height text
+                                  ),
+                                ] else if (_cCurrentValue != index) ...[
+                                  TextSpan(
+                                    text:
+                                        '${heights[index]}', // Display height when _cCurrentValue is equal to index
+                                    style: TextStyle(
+                                        fontSize: 45 - (index.toDouble() * 2),
+                                        color: Colors
+                                            .grey), // Style for height text
+                                  ),
+                                ],
+                                if (_cCurrentValue == index)
+                                  TextSpan(
+                                    text: ' cm', // Display "cm" text
+                                    style: TextStyle(
+                                        color: Colors
+                                            .green), // Style for "cm" text
+                                  ),
+                              ],
                             ),
-                          )),
-                  onValueChanged: (val) {
-                    setState(() {
-                      _cCurrentValue = val;
-                    });
-                  },
-                  hapticFeedbackType: HapticFeedbackType.vibrate,
-                  showPointer: false,
-                  itemSize: 80,
-                ),
-                valueText: Text(
-                  _countryList[_cCurrentValue]['name'].toString(),
-                  style: const TextStyle(
-                    fontSize: 18.0,
-                    height: 2.0,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                          ),
+                        )),
+                onValueChanged: (val) {
+                  setState(() {
+                    _cCurrentValue = val;
+                  });
+                },
+                hapticFeedbackType: HapticFeedbackType.vibrate,
+                showPointer: false,
               ),
               const SizedBox(
-                height: 40.0,
+                height: 50.0,
               ),
               CustomBox(
                 title: 'Custom Pointer Wheel Slider',
@@ -214,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const SizedBox(
-                height: 40.0,
+                height: 50.0,
               ),
             ],
           ),
