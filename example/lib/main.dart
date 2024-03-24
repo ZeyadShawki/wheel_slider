@@ -47,14 +47,14 @@ class _HomeScreenState extends State<HomeScreen> {
   int _cCurrentValue = 7;
 
   final List<Map<String, String>> _countryList = [
-    {'flag': 'assets/argentina.png', 'name': 'Argentina'},
-    {'flag': 'assets/australia.png', 'name': 'Australia'},
+    {'flag': 'assets/argentina.png', 'name': 'Argssssssssssssssentina'},
+    {'flag': 'assets/australia.png', 'name': 'Australiasssssssss'},
     {'flag': 'assets/brazil.png', 'name': 'Brazil'},
     {'flag': 'assets/canada.png', 'name': 'Canada'},
     {'flag': 'assets/cuba.png', 'name': 'Cuba'},
     {'flag': 'assets/hungary.png', 'name': 'Hungary'},
     {'flag': 'assets/iceland.png', 'name': 'Iceland'},
-    {'flag': 'assets/india.png', 'name': 'India'},
+    {'flag': 'assets/india.png', 'name': 'Issssssssssssssndia'},
     {'flag': 'assets/monaco.png', 'name': 'Monaco'},
     {'flag': 'assets/south-africa.png', 'name': 'South Africa'},
     {'flag': 'assets/ukraine.png', 'name': 'Ukraine'},
@@ -162,18 +162,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 50.0,
               ),
               WheelSlider.customWidget(
-                totalCount: heights.length,
+                totalCount: _countryList.length,
                 horizontal: false,
                 initValue: _cInitValue,
                 isInfinite: false,
                 scrollPhysics: const BouncingScrollPhysics(),
-                verticalListWidth: 150,
                 ageDivider: true,
+                listWidth: 700,
+                verticalListWidth: 700,
+                pointerWidth: 700,
+                horizontalListWidth: 700,
                 ageDividerColor: Colors.amber,
                 itemSize: 55,
                 verticalListHeight: 450.0,
                 perspective: 0.01,
                 dividerSpacing: 450 * 0.43,
+                dividerWidth: 100,
                 children: List.generate(
                     _countryList.length,
                     (index) => Center(
@@ -183,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 if (_cCurrentValue == index) ...[
                                   TextSpan(
                                     text:
-                                        '${heights[index]}', // Display height when _cCurrentValue is equal to index
+                                        '${_countryList[index]['name']}', // Display height when _cCurrentValue is equal to index
                                     style: TextStyle(
                                         fontSize: 45,
                                         color: Colors
@@ -193,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     _cCurrentValue == index + 1) ...[
                                   TextSpan(
                                     text:
-                                        '${heights[index]}', // Display height when _cCurrentValue is equal to index
+                                        '${_countryList[index]['name']}', // Display height when _cCurrentValue is equal to index
                                     style: TextStyle(
                                         fontSize: 45 - (index.toDouble()),
                                         color: Colors
@@ -202,20 +206,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ] else if (_cCurrentValue != index) ...[
                                   TextSpan(
                                     text:
-                                        '${heights[index]}', // Display height when _cCurrentValue is equal to index
+                                        '${_countryList[index]['name']}', // Display height when _cCurrentValue is equal to index
                                     style: TextStyle(
                                         fontSize: 45 - (index.toDouble() * 2),
                                         color: Colors
                                             .grey), // Style for height text
                                   ),
                                 ],
-                                if (_cCurrentValue == index)
-                                  TextSpan(
-                                    text: ' cm', // Display "cm" text
-                                    style: TextStyle(
-                                        color: Colors
-                                            .green), // Style for "cm" text
-                                  ),
                               ],
                             ),
                           ),

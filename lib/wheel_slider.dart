@@ -88,6 +88,7 @@ class WheelSlider extends StatefulWidget {
     this.ageDividerColor,
     this.dividerSpacing,
     this.dividerBetweenSpacing,
+    this.dividerWidth,
   })  : assert(perspective <= 0.01),
         selectedNumberStyle = null,
         unSelectedNumberStyle = null,
@@ -148,6 +149,7 @@ class WheelSlider extends StatefulWidget {
   final Color? ageDividerColor;
   final double? dividerSpacing;
   final double? dividerBetweenSpacing;
+  final double? dividerWidth;
 
   /// Displays numbers instead of lines.
   WheelSlider.number({
@@ -187,6 +189,7 @@ class WheelSlider extends StatefulWidget {
     this.ageDividerColor,
     this.dividerSpacing,
     this.dividerBetweenSpacing,
+    this.dividerWidth,
   })  : assert(perspective <= 0.01),
         lineColor = null,
         children = List.generate(totalCount + 1, (index) {
@@ -284,6 +287,7 @@ class WheelSlider extends StatefulWidget {
     this.ageDividerColor,
     this.dividerSpacing,
     this.dividerBetweenSpacing,
+    this.dividerWidth,
   })  : assert(perspective <= 0.01),
         lineColor = null,
         selectedNumberStyle = null,
@@ -375,25 +379,28 @@ class _WheelSliderState extends State<WheelSlider> {
         children: [
           widget.background,
           if (widget.ageDivider)
-            Column(
-              children: [
-                SizedBox(
-                  height: widget.dividerSpacing,
-                ),
-                SizedBox(
-                    child: Divider(
-                  thickness: 2,
-                  color: widget.ageDividerColor ?? Colors.black,
-                )),
-                SizedBox(
-                  height: widget.dividerBetweenSpacing ?? 40,
-                ),
-                SizedBox(
-                    child: Divider(
-                  thickness: 2,
-                  color: widget.ageDividerColor ?? Colors.black,
-                )),
-              ],
+            SizedBox(
+              width: widget.dividerWidth ?? 100,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: widget.dividerSpacing,
+                  ),
+                  SizedBox(
+                      child: Divider(
+                    thickness: 2,
+                    color: widget.ageDividerColor ?? Colors.black,
+                  )),
+                  SizedBox(
+                    height: widget.dividerBetweenSpacing ?? 40,
+                  ),
+                  SizedBox(
+                      child: Divider(
+                    thickness: 2,
+                    color: widget.ageDividerColor ?? Colors.black,
+                  )),
+                ],
+              ),
             ),
           WheelChooser.custom(
             controller: _scrollController,
