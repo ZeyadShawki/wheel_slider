@@ -384,7 +384,7 @@ class _WheelSliderState extends State<WheelSlider> {
                   color: widget.ageDividerColor ?? Colors.black,
                 )),
                  SizedBox(
-                  height: widget.dividerSpacing??40,
+                  height: widget.dividerBetweenSpacing??40,
                 ),
                 SizedBox(
                     child: Divider(
