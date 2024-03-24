@@ -86,7 +86,7 @@ class WheelSlider extends StatefulWidget {
     this.animationDuration = const Duration(seconds: 1),
     this.animationType = Curves.easeIn,
     this.ageDividerColor,
-    this.dividerSpacing,
+    this.dividerSpacing, this.dividerBetweenSpacing,
   })  : assert(perspective <= 0.01),
         selectedNumberStyle = null,
         unSelectedNumberStyle = null,
@@ -146,6 +146,7 @@ class WheelSlider extends StatefulWidget {
   final bool ageDivider;
   final Color? ageDividerColor;
   final double? dividerSpacing;
+  final double? dividerBetweenSpacing;
 
   /// Displays numbers instead of lines.
   WheelSlider.number({
@@ -183,7 +184,7 @@ class WheelSlider extends StatefulWidget {
     this.animationDuration = const Duration(seconds: 1),
     this.animationType = Curves.easeIn,
     this.ageDividerColor,
-    this.dividerSpacing,
+    this.dividerSpacing, this.dividerBetweenSpacing,
   })  : assert(perspective <= 0.01),
         lineColor = null,
         children = List.generate(totalCount + 1, (index) {
@@ -280,7 +281,7 @@ class WheelSlider extends StatefulWidget {
     this.animationType = Curves.easeIn,
     this.ageDivider = false,
     this.ageDividerColor,
-    this.dividerSpacing,
+    this.dividerSpacing, this.dividerBetweenSpacing,
   })  : assert(perspective <= 0.01),
         lineColor = null,
         selectedNumberStyle = null,
@@ -382,8 +383,8 @@ class _WheelSliderState extends State<WheelSlider> {
                   thickness: 2,
                   color: widget.ageDividerColor ?? Colors.black,
                 )),
-                const SizedBox(
-                  height: 40,
+                 SizedBox(
+                  height: widget.dividerSpacing??40,
                 ),
                 SizedBox(
                     child: Divider(
