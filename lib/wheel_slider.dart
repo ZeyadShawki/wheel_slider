@@ -1,5 +1,7 @@
 library wheel_slider;
 
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -83,7 +85,8 @@ class WheelSlider extends StatefulWidget {
     this.enableAnimation = true,
     this.animationDuration = const Duration(seconds: 1),
     this.animationType = Curves.easeIn,
-    this.ageDividerColor, this.dividerSpacing,
+    this.ageDividerColor,
+    this.dividerSpacing,
   })  : assert(perspective <= 0.01),
         selectedNumberStyle = null,
         unSelectedNumberStyle = null,
@@ -142,7 +145,8 @@ class WheelSlider extends StatefulWidget {
 
   final bool ageDivider;
   final Color? ageDividerColor;
-final double? dividerSpacing ;
+  final double? dividerSpacing;
+
   /// Displays numbers instead of lines.
   WheelSlider.number({
     Key? key,
@@ -178,7 +182,8 @@ final double? dividerSpacing ;
     this.enableAnimation = true,
     this.animationDuration = const Duration(seconds: 1),
     this.animationType = Curves.easeIn,
-    this.ageDividerColor, this.dividerSpacing,
+    this.ageDividerColor,
+    this.dividerSpacing,
   })  : assert(perspective <= 0.01),
         lineColor = null,
         children = List.generate(totalCount + 1, (index) {
@@ -193,14 +198,20 @@ final double? dividerSpacing ;
           if (isAdjacentToCurrent) {
             // For indices one less than, current, or one greater than the current index
             fontSize = unSelectedNumberStyle?.fontSize ?? 12.0;
-            numberStyle =
-                selectedNumberStyle; // Apply selected style for adjacent indices
+            if (index == currentIndex) {
+              numberStyle =
+                  selectedNumberStyle; // Apply selected style for adjacent indices
+            } else {
+              log('sss');
+              numberStyle = (selectedNumberStyle?.copyWith(
+                  color: selectedNumberStyle!.color, fontSize: fontSize - .5));
+            }
           } else if (isTwoAwayFromCurrent) {
             // For indices two less than or two greater than the current index
             fontSize = unSelectedNumberStyle?.fontSize ?? 12.0;
             numberStyle = (unSelectedNumberStyle?.copyWith(
                 fontSize: fontSize -
-                    2))!; // Apply modified unselected style for indices two away
+                    4))!; // Apply modified unselected style for indices two away
           } else {
             // For indices further away (less than -2 or greater than +2)
             fontSize = unSelectedNumberStyle?.fontSize ?? 12.0;
@@ -268,7 +279,8 @@ final double? dividerSpacing ;
     this.animationDuration = const Duration(seconds: 1),
     this.animationType = Curves.easeIn,
     this.ageDivider = false,
-    this.ageDividerColor, this.dividerSpacing,
+    this.ageDividerColor,
+    this.dividerSpacing,
   })  : assert(perspective <= 0.01),
         lineColor = null,
         selectedNumberStyle = null,

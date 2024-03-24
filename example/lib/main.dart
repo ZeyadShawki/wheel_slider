@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemSize: 55,
                   verticalListHeight: 450.0,
                   perspective: 0.01,
-                  dividerSpacing: 450 * 0.42,
+                  dividerSpacing: 450 * 0.43,
                   totalCount: _nTotalCount,
                   initValue: _nInitValue,
                   unSelectedNumberStyle: const TextStyle(
@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   // horizontalListHeight: 500,
                   selectedNumberStyle: const TextStyle(
-                    fontSize: 40.0,
+                    fontSize: 45.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.redAccent,
                   ),
