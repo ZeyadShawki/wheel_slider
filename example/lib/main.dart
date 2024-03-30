@@ -107,6 +107,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 wheelSlider: WheelSlider(
                   totalCount: _totalCount,
                   initValue: _initValue,
+                
+                  pointerHeight: 100,
+                  horizontalListHeight: 100,
                   onValueChanged: (val) {
                     setState(() {
                       _currentValue = val;

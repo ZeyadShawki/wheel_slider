@@ -52,7 +52,7 @@ class WheelSlider extends StatefulWidget {
   final bool enableAnimation;
   final Duration animationDuration;
   final Curve animationType;
-
+final double? pointerBottomMargin;
   WheelSlider({
     Key? key,
     this.ageDivider = false,
@@ -88,7 +88,7 @@ class WheelSlider extends StatefulWidget {
     this.ageDividerColor,
     this.dividerSpacing,
     this.dividerBetweenSpacing,
-    this.dividerWidth,
+    this.dividerWidth, this.pointerBottomMargin,
   })  : assert(perspective <= 0.01),
         selectedNumberStyle = null,
         unSelectedNumberStyle = null,
@@ -105,6 +105,7 @@ class WheelSlider extends StatefulWidget {
       double pointerHeight, double pointerWidth, Color pointerColor) {
     return customPointer == null
         ? Container(
+          margin: EdgeInsets.only(bottom: 25),
             height: horizontal ? pointerHeight : pointerWidth,
             width: horizontal ? pointerWidth : pointerHeight,
             color: pointerColor,
@@ -116,6 +117,7 @@ class WheelSlider extends StatefulWidget {
     return List.generate(
       totalCount + 1,
       (index) => Container(
+        // margin: EdgeInsets.only(),
         height: horizontal
             ? multipleOfFive(index * (interval))
                 ? 35.0
@@ -189,7 +191,7 @@ class WheelSlider extends StatefulWidget {
     this.ageDividerColor,
     this.dividerSpacing,
     this.dividerBetweenSpacing,
-    this.dividerWidth,
+    this.dividerWidth, this.pointerBottomMargin,
   })  : assert(perspective <= 0.01),
         lineColor = null,
         children = List.generate(totalCount + 1, (index) {
@@ -287,7 +289,7 @@ class WheelSlider extends StatefulWidget {
     this.ageDividerColor,
     this.dividerSpacing,
     this.dividerBetweenSpacing,
-    this.dividerWidth,
+    this.dividerWidth, this.pointerBottomMargin,
   })  : assert(perspective <= 0.01),
         lineColor = null,
         selectedNumberStyle = null,
